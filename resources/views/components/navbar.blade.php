@@ -10,7 +10,7 @@
             <a href="/" class="nav-item nav-link active">Bosh sahifa</a>
             <a href="{{ route('about') }}" class="nav-item nav-link">Biz haqimizda</a>
             <a href="{{ route('service') }}" class="nav-item nav-link">Xizmatlar</a>
-            <a href="project.html" class="nav-item nav-link">Project</a>
+            <a href="{{ route('projects') }}" class="nav-item nav-link">Portfolio</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                 <div class="dropdown-menu rounded-0 m-0">
