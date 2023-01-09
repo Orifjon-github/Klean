@@ -5,8 +5,7 @@
         </x-slot>
 
         <x-page-header>
-            Post O'zgartirish 
-            #{{$post->id}}
+            Post O'zgartirish #{{$post->id}}
         </x-page-header>
         <div class="container py-5">
             <div class="w-50 py-4">
@@ -30,7 +29,7 @@
                             @enderror
                         </div>
                         <div class="control-group mb-4">
-                            <textarea class="form-control p-4" rows="3" name="short_content" placeholder="Qisqacha mazmuni">{{$post->short_content}}</textarea>
+                            <textarea class="form-control p-4" rows="3" name="short_content" placeholder="Qisqacha mazmuni">{{$post->shorts_content}}</textarea>
                             @error('short_content')
                             <p class="help-block text-danger">{{$message}}</p>
                             @enderror
