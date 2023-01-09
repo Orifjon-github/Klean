@@ -10,12 +10,19 @@
             <div class="w-50 py-4">
                 <div class="contact-form">
                     <div id="success"></div>
-                    <form action="{{ route('posts.store') }}" method="POST">
+                    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="control-group mb-4">
                             <input type="text" class="form-control p-4" name="title" value="{{old('title')}}" placeholder="Sarlavha" />
         
                             @error('title')
+                            <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
+                        <div class="control-group mb-4">
+                            <input type="file" class="form-control p-4" name="photo" placeholder="Rasm" />
+        
+                            @error('photo')
                             <p class="help-block text-danger">{{$message}}</p>
                             @enderror
                         </div>
