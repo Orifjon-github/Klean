@@ -13,10 +13,12 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="row mb-4">
-                            <a class="btn btn-sm btn-outline-dark mr-2" href="{{route('posts.edit', ['post' => $post->id])}}">Edit</a>
-                            <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST" onsubmit="return confirm('Rostdan ham o\'chirishni xoxlaysizmi?');">
+                            <a class="btn btn-sm btn-outline-dark mr-2"
+                                href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
+                            <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
+                                onsubmit="return confirm('Rostdan ham o\'chirishni xoxlaysizmi?');">
                                 @csrf
-                                @method("DELETE")
+                                @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                             </form>
 
@@ -27,40 +29,47 @@
                                 <span class="text-primary px-2">|</span>
                                 <a class="text-secondary text-uppercase font-weight-medium" href="">Cleaning</a>
                                 <span class="text-primary px-2">|</span>
-                                <a class="text-secondary text-uppercase font-weight-medium" href="">{{$post->created_at}}</a>
+                                <a class="text-secondary text-uppercase font-weight-medium" href="">{{$post->category->name}}</a>
+                                <span class="text-primary px-2">|</span>
+                                
+                                <a class="text-secondary text-uppercase font-weight-medium"
+                                    href="">{{ $post->created_at }}</a>
                             </div>
-                            <h1 class="section-title mb-3">{{$post->title}}</h1>
+                            <h1 class="section-title mb-3">{{ $post->title }}</h1>
                         </div>
 
                         <div class="mb-5">
-                            <img class="img-fluid rounded w-100 mb-4" src="{{ asset('storage/'.$post->photo) }}" alt="Image">
-                            {{$post->content}}
-                           
+                            <img class="img-fluid rounded w-100 mb-4" src="{{ asset('storage/' . $post->photo) }}"
+                                alt="Image">
+                            {{ $post->content }}
+
                         </div>
 
                         <div class="mb-5">
-                            <h3 class="mb-4 section-title">{{$post->comments()->count()}} Comments</h3>
+                            <h3 class="mb-4 section-title">{{ $post->comments()->count() }} Comments</h3>
                             @foreach ($post->comments as $comment)
-                            <div class="media mb-4">
-                                <img src="/img/user.jpg" alt="Image" class="img-fluid rounded-circle mr-3 mt-1"
-                                    style="width: 45px;">
-                                <div class="media-body">
-                                    <h6>{{$comment->user->name}}<small><i>{{$comment->created_at}}</i></small></h6>
-                                    <p>{{$comment->body}}</p>
-                                    {{-- <button class="btn btn-sm btn-light">Reply</button> --}}
+                                <div class="media mb-4">
+                                    <img src="/img/user.jpg" alt="Image" class="img-fluid rounded-circle mr-3 mt-1"
+                                        style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>{{ $comment->user->name }}<small><i>{{ $comment->created_at }}</i></small>
+                                        </h6>
+                                        <p>{{ $comment->body }}</p>
+                                        {{-- <button class="btn btn-sm btn-light">Reply</button> --}}
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
+
                         <div class="bg-light rounded p-5">
                             <h3 class="mb-4 section-title">Comment Qoldirish</h3>
-                            <form action="{{route('comments.store')}}" method="POST">
+                            <form action="{{ route('comments.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
                                     <label for="message">Message *</label>
                                     <textarea name="body" cols="30" rows="5" class="form-control"></textarea>
                                 </div>
-                                <input type="hidden" name="post_id" value="{{$post->id}}">
+                                <input type="hidden" name="post_id" value="{{ $post->id }}">
                                 <div class="form-group mb-0">
                                     <input type="submit" value="Yuborish" class="btn btn-primary">
                                 </div>
@@ -70,7 +79,8 @@
 
                     <div class="col-lg-4 mt-5 mt-lg-0">
                         <div class="d-flex flex-column text-center bg-secondary rounded mb-5 py-5 px-4">
-                            <img src="/img/user.jpg" class="img-fluid rounded-circle mx-auto mb-3" style="width: 100px;">
+                            <img src="/img/user.jpg" class="img-fluid rounded-circle mx-auto mb-3"
+                                style="width: 100px;">
                             <h3 class="text-white mb-3">John Doe</h3>
                             <p class="text-white m-0">Conset elitr erat vero dolor ipsum et diam, eos dolor lorem ipsum,
                                 ipsum
@@ -124,23 +134,23 @@
                             <h3 class="mb-4 section-title">Recent Post</h3>
 
                             @foreach ($recent_posts as $post)
-                            <div class="d-flex align-items-center border-bottom mb-3 pb-3">
-                                <img class="img-fluid rounded" src="/img/blog-1.jpg"
-                                    style="width: 80px; height: 80px; object-fit: cover;" alt="">
-                                <div class="d-flex flex-column pl-3">
-                                    <a class="text-dark mb-2" href="">{{$post->title}}</a>
-                                    <div class="d-flex">
-                                        <small><a class="text-secondary text-uppercase font-weight-medium"
-                                                href="">Admin</a></small>
-                                        <small class="text-primary px-2">|</small>
-                                        <small><a class="text-secondary text-uppercase font-weight-medium"
-                                                href="">Cleaning</a></small>
+                                <div class="d-flex align-items-center border-bottom mb-3 pb-3">
+                                    <img class="img-fluid rounded" src="/img/blog-1.jpg"
+                                        style="width: 80px; height: 80px; object-fit: cover;" alt="">
+                                    <div class="d-flex flex-column pl-3">
+                                        <a class="text-dark mb-2" href="">{{ $post->title }}</a>
+                                        <div class="d-flex">
+                                            <small><a class="text-secondary text-uppercase font-weight-medium"
+                                                    href="">Admin</a></small>
+                                            <small class="text-primary px-2">|</small>
+                                            <small><a class="text-secondary text-uppercase font-weight-medium"
+                                                    href="">Cleaning</a></small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
-                           
-                           
+
+
                         </div>
                         <div class="mb-5">
                             <img src="/img/blog-2.jpg" alt="" class="img-fluid rounded">
