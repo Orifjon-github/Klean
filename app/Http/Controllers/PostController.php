@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+    
     public function index()
     {
 
@@ -41,7 +46,7 @@ class PostController extends Controller
         $path = $request->file('photo')->storeAs('post-photos', $name);
         
         $post = Post::create([
-            'user_id' => 1,
+            'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'shorts_content' => $request->short_content,

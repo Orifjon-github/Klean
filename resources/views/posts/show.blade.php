@@ -81,7 +81,7 @@
                         <div class="d-flex flex-column text-center bg-secondary rounded mb-5 py-5 px-4">
                             <img src="/img/user.jpg" class="img-fluid rounded-circle mx-auto mb-3"
                                 style="width: 100px;">
-                            <h3 class="text-white mb-3">John Doe</h3>
+                            <h3 class="text-white mb-3">{{auth()->user()->name}}</h3>
                             <p class="text-white m-0">Conset elitr erat vero dolor ipsum et diam, eos dolor lorem ipsum,
                                 ipsum
                                 ipsum sit no ut est. Guber ea ipsum erat kasd amet est elitr ea sit.</p>
