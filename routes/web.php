@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,10 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 // Route::put('/posts/{post}/edit', [PageController::class, 'update'])->name('posts.update');
 // Route::delete('/posts/{post}/delete', [PageController::class, 'delete'])->name('posts.delete');
 
-Route::resource('posts', PostController::class);
+// Route::resource('posts', PostController::class);
+
+Route::resources([
+    'posts' => PostController::class,
+    'comments' => CommentController::class,
+
+]);
