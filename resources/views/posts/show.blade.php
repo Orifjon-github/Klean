@@ -12,26 +12,30 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <div class="row mb-4">
-                            <a class="btn btn-sm btn-outline-dark mr-2"
-                                href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
-                            <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
-                                onsubmit="return confirm('Rostdan ham o\'chirishni xoxlaysizmi?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                            </form>
-
-                        </div>
+                        @auth
+                            @canany(['update', 'delete'], $post)
+                                <div class="row mb-4">
+                                    <a class="btn btn-sm btn-outline-dark mr-2"
+                                        href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit</a>
+                                    <form action="{{ route('posts.destroy', ['post' => $post]) }}" method="POST"
+                                        onsubmit="return confirm('Rostdan ham o\'chirishni xoxlaysizmi?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </div>
+                            @endcanany
+                        @endauth
                         <div class="mb-5">
                             <div class="d-flex mb-2">
                                 <a class="text-secondary text-uppercase font-weight-medium" href="">Admin</a>
                                 <span class="text-primary px-2">|</span>
                                 <a class="text-secondary text-uppercase font-weight-medium" href="">Cleaning</a>
                                 <span class="text-primary px-2">|</span>
-                                <a class="text-secondary text-uppercase font-weight-medium" href="">{{$post->category->name}}</a>
+                                <a class="text-secondary text-uppercase font-weight-medium"
+                                    href="">{{ $post->category->name }}</a>
                                 <span class="text-primary px-2">|</span>
-                                
+
                                 <a class="text-secondary text-uppercase font-weight-medium"
                                     href="">{{ $post->created_at }}</a>
                             </div>
@@ -81,7 +85,7 @@
                         <div class="d-flex flex-column text-center bg-secondary rounded mb-5 py-5 px-4">
                             <img src="/img/user.jpg" class="img-fluid rounded-circle mx-auto mb-3"
                                 style="width: 100px;">
-                            <h3 class="text-white mb-3">{{auth()->user()->name}}</h3>
+                            <h3 class="text-white mb-3">{{ $post->user->name }}</h3>
                             <p class="text-white m-0">Conset elitr erat vero dolor ipsum et diam, eos dolor lorem ipsum,
                                 ipsum
                                 ipsum sit no ut est. Guber ea ipsum erat kasd amet est elitr ea sit.</p>
@@ -101,12 +105,14 @@
                             <h3 class="mb-4 section-title">Categories</h3>
                             <ul class="list-inline m-0">
                                 @foreach ($category as $category)
-                                <li class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center">
-                                    <a class="text-dark" href="#"><i
-                                            class="fa fa-angle-right text-secondary mr-2"></i>{{$category->name}}</a>
-                                            {{-- @dd($category->count()) --}}
-                                    <span class="badge badge-primary badge-pill">{{$category->posts()->count()}}</span>
-                                </li>
+                                    <li
+                                        class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center">
+                                        <a class="text-dark" href="#"><i
+                                                class="fa fa-angle-right text-secondary mr-2"></i>{{ $category->name }}</a>
+                                        {{-- @dd($category->count()) --}}
+                                        <span
+                                            class="badge badge-primary badge-pill">{{ $category->posts()->count() }}</span>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -114,7 +120,7 @@
                             <h3 class="mb-4 section-title">Tag Cloud</h3>
                             <div class="d-flex flex-wrap m-n1">
                                 @foreach ($post->tags as $tag)
-                                <a href="" class="btn btn-outline-secondary m-1">{{$tag->name}}</a>
+                                    <a href="" class="btn btn-outline-secondary m-1">{{ $tag->name }}</a>
                                 @endforeach
                             </div>
                         </div>
@@ -146,7 +152,7 @@
                         <div class="mb-5">
                             <img src="/img/blog-2.jpg" alt="" class="img-fluid rounded">
                         </div>
-                       
+
                         <div class="mb-5">
                             <img src="/img/blog-3.jpg" alt="" class="img-fluid rounded">
                         </div>

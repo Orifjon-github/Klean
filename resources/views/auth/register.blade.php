@@ -38,7 +38,7 @@
                                 </div>
     
                                 <button type="submit" class="btn btn-primary btn-block mt-3">Register</button>
-                                <div class="text-center pt-4 text-muted">Do you have an account? <a href="#">Sign
+                                <div class="text-center pt-4 text-muted">Do you have an account? <a href="{{route('login')}}">Sign
                                         in</a> </div>
                             </form>
                         </div>
