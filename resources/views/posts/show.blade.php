@@ -170,4 +170,6 @@
             </div>
         </div>
         <!-- Detail End -->
+
+
 </x-layouts.main>

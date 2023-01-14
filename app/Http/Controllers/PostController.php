@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Events\PostCreated;
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\UploadBigFile;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,9 +18,10 @@ class PostController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
+//        $this->middleware('password-confirm')->only('delete');
         $this->authorizeResource(Post::class, 'post');
     }
-    
+
     public function index()
     {
 
@@ -47,7 +50,7 @@ class PostController extends Controller
     {
         $name = $request->file('photo')->getClientOriginalName();
         $path = $request->file('photo')->storeAs('post-photos', $name);
-        
+
         $post = Post::create([
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
@@ -66,6 +69,12 @@ class PostController extends Controller
         }
 
         PostCreated::dispatch($post);
+
+        UploadBigFile::dispatch($post)->onQueue('uploading');
+
+        Mail::to($request->user())->send((new \App\Mail\PostCreated($post))->onQueue('sending-mails'));
+
+
 
         return redirect()->route('posts.index');
     }

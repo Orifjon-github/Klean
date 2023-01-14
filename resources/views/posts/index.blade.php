@@ -1,7 +1,7 @@
 <x-layouts.main>
     <x-slot:title>
         Blog
-        </x-slot>
+    </x-slot>
 
         <x-page-header>
             Blog

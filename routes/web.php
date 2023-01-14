@@ -22,7 +22,7 @@ Route::get('/welcome', [PageController::class, 'welcome']);
 
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/services', [PageController::class, 'service'])->name('service');
-Route::get('/projects', [PageController::class, 'projects'])->name('projects');
+Route::get('/projects', [PageController::class, 'projects'])->name('projects')->middleware('throttle:3');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
